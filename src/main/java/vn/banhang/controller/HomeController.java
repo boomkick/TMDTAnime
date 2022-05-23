@@ -74,6 +74,7 @@ public class HomeController  extends HttpServlet{
 				map.put(cart.getProduct().getId(), cart);
 			}
 			session.setAttribute("cart", map);
+			req.setAttribute("user", user);
 			
 		}
 		

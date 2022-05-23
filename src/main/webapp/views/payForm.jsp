@@ -50,13 +50,13 @@
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="index.html"><img src="${url}/frontend/layout/img/logos/logo-corp-red.png" alt="Metronic FrontEnd"></a>
+        <a class="site-logo" href="${pageContext.request.contextPath}/home"><img src="${url}/frontend/layout/img/logos/logo-animeShop.png" alt="Metronic Shop UI"></a>
 
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
 
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation pull-right font-transform-inherit">
-          <ul>
+          <!-- <ul>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
                 Home 
@@ -205,7 +205,7 @@
             <li><a href="onepage-index.html" target="_blank">One Page</a></li>
             <li><a href="http://keenthemes.com/preview/metronic/theme/templates/admin" target="_blank">Admin theme</a></li>
 
-            <!-- BEGIN TOP SEARCH -->
+            BEGIN TOP SEARCH
             <li class="menu-search">
               <span class="sep"></span>
               <i class="fa fa-search search-btn"></i>
@@ -220,8 +220,8 @@
                 </form>
               </div> 
             </li>
-            <!-- END TOP SEARCH -->
-          </ul>
+            END TOP SEARCH
+          </ul> -->
         </div>
         <!-- END NAVIGATION -->
       </div>
@@ -233,13 +233,13 @@
         <ul class="breadcrumb">
             <li><a href="index.html">Home</a></li>
             <li><a href="#">Features</a></li>
-            <li class="active">Forms</li>
+            <li class="active">Reciever</li>
         </ul>
         <!-- BEGIN SIDEBAR & CONTENT -->
         <div class="row margin-bottom-20">
           <!-- BEGIN CONTENT -->
           <div class="col-md-12 col-sm-12">
-            <h1>Forms</h1>
+            <h1>Reciever Information</h1>
             <div class="content-page">
             <div class="content-page">
 
@@ -251,7 +251,7 @@
 
             <div class="portlet-title">
               <div class="caption">
-                <i class="fa fa-gift"></i> Horizontal Form Validation States
+                <i class="fa fa-gift"></i> Set information for reciever
               </div>
               <div class="tools">
                 <a href="" class="collapse">
@@ -295,7 +295,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-actions fluid">
+                <!-- class="form-actions fluid" -->
+                <div >
                   <div class="col-md-offset-4 col-md-8">
                     <button type="button" class="btn default">Cancel</button>
                     <button type="submit" class="btn blue">Submit</button>

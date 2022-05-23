@@ -56,11 +56,21 @@
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a href="shop-account.html">My Account</a></li>
+                        <li><a >My Account</a></li>
                         <li><a href="shop-wishlist.html">My Wishlist</a></li>
                         <li><a href="${pageContext.request.contextPath }/checkout">Checkout</a></li>
-                        <li><a href="${pageContext.request.contextPath }/login">Log In</a></li>
-                        <li><a href="${pageContext.request.contextPath }/logout">Log Out</a></li>
+                		<c:choose>
+						  <c:when test="${ user != null}">
+						  	<c:if test="${ user.is_seller == 1}">
+			                	<li><a href="${pageContext.request.contextPath}/seller">Seller</a></li>
+			                </c:if>
+						    <li><a href="${pageContext.request.contextPath }/logout">Log Out</a></li>
+						  </c:when>
+						  <c:otherwise>
+						    <li><a href="${pageContext.request.contextPath }/login">Log In</a></li>
+						    <li><a href="${pageContext.request.contextPath }/register">Register</a></li>
+						  </c:otherwise>
+						</c:choose>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->
@@ -72,28 +82,21 @@
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="${pageContext.request.contextPath}/home"><img src="${url}/frontend/layout/img/logos/logo-shop-red.png" alt="Metronic Shop UI"></a>
+        <a class="site-logo" href="${pageContext.request.contextPath}/home"><img src="${url}/frontend/layout/img/logos/logo-animeShop.png" alt="Metronic Shop UI"></a>
 
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
 
         <!-- BEGIN CART -->
         <div class="top-cart-block">
           <div class="top-cart-info">
-            <a id="cartQuantity" href="javascript:void(0);" class="top-cart-info-count">${cartQuantity } items</a>
+            <a id="cartQuantity" href="${pageContext.request.contextPath }/cart" class="top-cart-info-count">${cartQuantity } items</a>
             <a id="cartCharge" href="javascript:void(0);" class="top-cart-info-value">${cartCharge }</a>
           </div>
-          <i class="fa fa-shopping-cart"></i>
+          <i id="checkout" class="fa fa-shopping-cart" style="cursor: pointer;"></i>
                         
-          <div class="top-cart-content-wrapper">
+          <%-- <div class="top-cart-content-wrapper">
             <div class="top-cart-content">
               <ul class="scroller" style="height: 250px;">
-                <%-- <li>
-                  <a href="shop-item.html"><img src="${url}/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-                  <span class="cart-content-count">x 1</span>
-                  <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-                  <em>$1230</em>
-                  <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
-                </li>
                 <li>
                   <a href="shop-item.html"><img src="${url}/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
                   <span class="cart-content-count">x 1</span>
@@ -142,14 +145,21 @@
                   <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
                   <em>$1230</em>
                   <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
-                </li>--%>
+                </li>
+                <li>
+                  <a href="shop-item.html"><img src="${url}/frontend/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
+                  <span class="cart-content-count">x 1</span>
+                  <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
+                  <em>$1230</em>
+                  <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
+                </li>
               </ul>
               <div class="text-right">
                 <a href="${pageContext.request.contextPath }/cart" class="btn btn-default">View Cart</a>
                 <a href="${pageContext.request.contextPath }/checkout" class="btn btn-primary">Checkout</a>
               </div>
             </div>
-          </div>            
+          </div>    --%>         
         </div>
         <!--END CART -->
 
@@ -383,7 +393,8 @@
                   </div>
                   <h3><a href="shop-item.html">${p.name}</a></h3>
                   <div class="pi-price">${p.price}</div>
-                  <a class="btn btn-default add2cart" onclick="addToCart(${p.id}, ${p.price }, 1)">Add to cart</a>
+                  <a class="btn btn-default add2cart" onclick="addToCart(${p.id}, ${p.price }, 1,${user.id} )">Add to cart</a>
+                  
                 </div>
               </div>
              </c:forEach>
@@ -422,7 +433,7 @@
                   </div>
                   <h3><a href="shop-item.html">${p.name}</a></h3>
                   <div class="pi-price">$ ${p.price}</div>
-                  <a onclick="addToCart(${p.id}, ${p.price },1)" class="btn btn-default add2cart">Add to cart</a>
+                  <a onclick="addToCart(${p.id}, ${p.price },1,${user.id})" class="btn btn-default add2cart">Add to cart</a>
                 </div>
               </div>
              </c:forEach>
@@ -450,7 +461,7 @@
                   </div>
                   <h3><a href="shop-item.html">${p.name}</a></h3>
                   <div class="pi-price">$ ${p.price}</div>
-                  <a onclick="addToCart(${p.id}, ${p.price },1)" class="btn btn-default add2cart">Add to cart</a>
+                  <a onclick="addToCart(${p.id}, ${p.price }, 1, ${user.id} )" class="btn btn-default add2cart">Add to cart</a>
                 </div>
               </div>
             </c:forEach>
@@ -469,13 +480,13 @@
                 </ol>
                 <div class="carousel-inner">
                   <div class="item active">
-                    <img src="${url}/frontend/pages/img/index-sliders/slide1.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="${url}/frontend/pages/img/index-sliders/slider-nezuko.png" class="img-responsive" alt="Berry Lace Dress">
                   </div>
                   <div class="item">
-                    <img src="${url}/frontend/pages/img/index-sliders/slide2.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="${url}/frontend/pages/img/index-sliders/slider-yourname.png" class="img-responsive" alt="Berry Lace Dress">
                   </div>
                   <div class="item">
-                    <img src="${url}/frontend/pages/img/index-sliders/slide3.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="${url}/frontend/pages/img/index-sliders/slider-mirai.png" class="img-responsive" alt="Berry Lace Dress">
                   </div>
                 </div>
               </div>
@@ -754,28 +765,36 @@ Nostrud duis molestie at dolore.</p>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<script>
+	const checkout = document.getElementById("checkout");
+	checkout.onclick = () => {location.replace("${pageContext.request.contextPath }/checkout");}
+	</script>
     <script>
-	    function addToCart(id, price, amount){
-	    	console.log(id)
-	    	$.ajax({
-				url : "/BanHang/api/add-to-cart?id=" + id + "&price=" + price + "&amount=" + amount,
-				type : "get",
-				data : {
-					
-				},
-				success : function(data) {
-					/*const array = data.split("/")
-					document.getElementById("cartQuantity").innerText = array[0] + " items"
-					document.getElementById("cartCharge").innerText = array[1]*/
-					const array = data.split("/")
-					document.getElementById("cartQuantity").innerText = array[0] + " items"
-					document.getElementById("cartCharge").innerText = array[1]
-				},
-				error : function(xhr) {
-					console.log(xhr)
-				}
-			});
-	    }
+    function addToCart(id, price, amount,userID){
+    	if(userID == null){
+    		location.replace("${pageContext.request.contextPath }/login");
+    	}else{
+    		console.log(id)
+        	$.ajax({
+    			url : "/BanHang/api/add-to-cart?id=" + id + "&price=" + price + "&amount=" + amount,
+    			type : "get",
+    			data : {
+    				
+    			},
+    			success : function(data) {
+    				/*const array = data.split("/")
+    				document.getElementById("cartQuantity").innerText = array[0] + " items"
+    				document.getElementById("cartCharge").innerText = array[1]*/
+    				const array = data.split("/")
+    				document.getElementById("cartQuantity").innerText = array[0] + " items"
+    				document.getElementById("cartCharge").innerText = array[1]
+    			},
+    			error : function(xhr) {
+    				console.log(xhr)
+    			}
+    		});
+    	}
+    }
     </script>
     
 </body>
