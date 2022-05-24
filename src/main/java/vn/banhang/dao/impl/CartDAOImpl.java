@@ -160,7 +160,20 @@ public class CartDAOImpl implements CartDAO {
 			Root<Cart> root = query.from(Cart.class);	//root là truy vấn gốc dùng để chỉ định các trường cho phần lọc dữ liệu của builer
 			query.select(root); // Chỉ định loại kết quả truy vấn
 			
-			return session.createQuery(query).getResultList();
+			Predicate uID = builder.equal(root.get("user").get("id").as(int.class), userID);
+			Predicate status1 = builder.equal(root.get("status").as(String.class), "pending");
+			Predicate status2 = builder.equal(root.get("status").as(String.class), "deliveried");
+			Predicate status3 = builder.equal(root.get("status").as(String.class), "canceled");
+			
+			
+			query.where(uID, builder.or(status1,status2,status3)).orderBy(builder.desc(root.get("id")));
+			
+			List<Cart> cart = session.createQuery(query).getResultList();
+			if(cart.size() != 0) {
+				return cart;
+			}else {
+				return null;
+			}
 		}
 	}
 

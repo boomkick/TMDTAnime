@@ -56,95 +56,76 @@
     </div>
     <!-- Header END -->
 
-    <div class="main">
-      <div class="container">
-        <ul class="breadcrumb">
-            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-            <li class="active">My order</li>
-        </ul>
-        <!-- BEGIN SIDEBAR & CONTENT -->
-        <div class="row margin-bottom-20">
-          <!-- BEGIN CONTENT -->
-          <div class="col-md-12 col-sm-12">
-            <h1>Order Information</h1>
-            <div class="content-page">
-            <div class="content-page">
+	<div class="main">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+				<li class="active">My order</li>
+			</ul>
+			<!-- BEGIN SIDEBAR & CONTENT -->
+			<c:choose>
+				<c:when test="${ user != null && listCart != null}">
+					<c:forEach items="${listCart }" var="c">
+						<div class="row margin-bottom-20">
+							<div class="col-md-12 col-sm-12">
+								<h3>Thông tin đơn hàng số </h3>
+								<div class="content-page">
+									<div class="content-page">
+										<div class="row">
+											<div class="col-md-12 ">
+												<div class="portlet-body form">
+													<h4>Người mua hàng: ${c.name }</h4>
+													<h4>Số điện thoại: ${c.phone }</h4>
+													<h4>Địa chỉ giao hàng: ${c.location }</h4>
+													<h4>Tên sản phẩm: ${c.product.name }</h4>
+													<h4>Giá sản phẩm: ${c.price }</h4>
+													<h4>Số lượng: ${c.amount }</h4>
+													<h4>Ngày đặt hàng: ${c.order_date.getTime() }</h4>
+													<h4>Trạng thái đơn hàng: ${c.status }</h4>
+													<c:if test="${c.status == 'deliveried' }">
+														<h4>Ngày vận chuyển: ${c.delivery_date.getTime() }</h4>
+													</c:if>
+													<c:if test="${c.status != 'deliveried' }">
+														<h4>Ngày vận chuyển: Chưa xác định</h4>
+													</c:if>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="row margin-bottom-20">
+						<div class="col-md-12 col-sm-12">
+							<h1>Thông tin đơn hàng</h1>
+							<div class="content-page">
+								<div class="content-page">
+									<div class="row">
+										<div class="col-md-12 ">
+											<!-- BEGIN SAMPLE FORM PORTLET-->
+											<div class="portlet-body form">
+												<h1>Bạn không có đơn hàng nào gần đây</h1>
+												<h1>Nếu bạn xác nhận là đã mua hàng gần đây</h1>
+												<h1>Vui lòng <a href="${pageContext.request.contextPath}/login"
+														class="text-danger">đăng nhập</a> để xem đơn hàng của bạn</h1>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			<!-- END SIDEBAR & CONTENT -->
+		</div>
+	</div>
 
-              
-      <div class="row">
-
-        <div class="col-md-12 ">
-          <!-- BEGIN SAMPLE FORM PORTLET-->
-
-            
-            
-            <div class="portlet-body form">
-            	<c:choose>
-					<c:when test="${ user == null}">
-						<h1 >Bạn không có đơn hàng nào gần đây</h1>
-            			<h1>Nếu bạn xác nhận là đã mua hàng gần đây</h1>
-            			<div> </div>
-            			<h1>Vui lòng <a href="${pageContext.request.contextPath}/login" class="text-danger">đăng nhập</a> 
-            					để xem đơn hàng của bạn</h1>
-					</c:when>
-					<c:otherwise>
-						
-					</c:otherwise>
-				</c:choose>
-            	
-             <!--  <form role="form" method="post">
-                <div class="form-body">
-                  <div class="form-group">
-                    <label class="col-md-4 control-label">Name</label>
-                    <div class="col-md-8">
-                      <div class="input-icon right">
-
-                        <input type="text" class="form-control" name="name">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group has-success">
-                    <label class="col-md-4 control-label">Phone</label>
-                    <div class="col-md-8">
-                      <div class="input-icon right">
-
-                        <input type="text" class="form-control" name="phone">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group has-warning">
-                    <label class="col-md-4 control-label">Location</label>
-                    <div class="col-md-8">
-                      <div class="input-icon right">
-                        <input type="text" class="form-control" name="location">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                class="form-actions fluid"
-                <div >
-                  <div class="col-md-offset-4 col-md-8">
-                    <button type="button" class="btn default">Cancel</button>
-                    <button type="submit" class="btn blue">Submit</button>
-                  </div>
-                </div>
-              </form> -->
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-            </div>
-          </div>
-          <!-- END CONTENT -->
-        </div>
-        <!-- END SIDEBAR & CONTENT -->
-      </div>
-    </div>
-
-    <!-- BEGIN PRE-FOOTER -->
+	<!-- BEGIN PRE-FOOTER -->
     <div class="pre-footer mb-5">
       <div class="container">
       </div>
