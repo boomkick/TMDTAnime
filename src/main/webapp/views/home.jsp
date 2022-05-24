@@ -56,19 +56,19 @@
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a >My Account</a></li>
-                        <li><a href="shop-wishlist.html">My Wishlist</a></li>
-                        <li><a href="${pageContext.request.contextPath }/checkout">Checkout</a></li>
+                    	
                 		<c:choose>
 						  <c:when test="${ user != null}">
+						  	<li><a >My Account</a></li>
+                        	<li><a href="${pageContext.request.contextPath }/checkout">Checkout</a></li>
 						  	<c:if test="${ user.is_seller == 1}">
 			                	<li><a href="${pageContext.request.contextPath}/seller">Seller</a></li>
 			                </c:if>
+			                <li><a href="${pageContext.request.contextPath }/order">My Order</a></li>
 						    <li><a href="${pageContext.request.contextPath }/logout">Log Out</a></li>
 						  </c:when>
 						  <c:otherwise>
 						    <li><a href="${pageContext.request.contextPath }/login">Log In</a></li>
-						    <li><a href="${pageContext.request.contextPath }/register">Register</a></li>
 						  </c:otherwise>
 						</c:choose>
                     </ul>
