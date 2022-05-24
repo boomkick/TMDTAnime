@@ -43,4 +43,9 @@ public class CartServiceImpl implements CartService {
 		dao.update(cart);
 	}
 
+	@Override
+	public List<Cart> getByUserID(int userID) {
+		return dao.getByUserID(userID);
+	}
+
 }

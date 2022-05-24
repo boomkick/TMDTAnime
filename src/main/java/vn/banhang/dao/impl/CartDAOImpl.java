@@ -128,7 +128,7 @@ public class CartDAOImpl implements CartDAO {
 	}
 	
 	public static void main(String[] args) {
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		/*try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			Shop shop = session.get(Shop.class, 1);
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			Date from = null;
@@ -149,6 +149,18 @@ public class CartDAOImpl implements CartDAO {
 			List<Cart> list = new CartDAOImpl().shopSearch(shop, "", "", null, fromC);
 			
 			System.out.println(list);
+		}*/
+	}
+
+	@Override
+	public List<Cart> getByUserID(int userID) {
+		try(Session session = factory.openSession()){
+			CriteriaBuilder builder = session.getCriteriaBuilder();	//builder dùng để tạo các biểu thức đk trong câu lệnh where
+			CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+			Root<Cart> root = query.from(Cart.class);	//root là truy vấn gốc dùng để chỉ định các trường cho phần lọc dữ liệu của builer
+			query.select(root); // Chỉ định loại kết quả truy vấn
+			
+			return session.createQuery(query).getResultList();
 		}
 	}
 

@@ -13,4 +13,5 @@ public interface CartService {
 	 public long countOrderByStatus(Shop shop, String status);
 	 public void add(Cart cart);
 	 public void update(Cart cart);
+	 public List<Cart> getByUserID(int userID);
 }
