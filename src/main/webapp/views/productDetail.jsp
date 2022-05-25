@@ -54,11 +54,21 @@
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a href="shop-account.html">My Account</a></li>
-                        <li><a href="shop-wishlist.html">My Wishlist</a></li>
-                        <li><a href="${pageContext.request.contextPath }/checkout">Checkout</a></li>
-                        <li><a href="${pageContext.request.contextPath }/login">Log In</a></li>
-                        <li><a href="${pageContext.request.contextPath }/logout">Log Out</a></li>
+                    	
+                		<c:choose>
+						  <c:when test="${ user != null}">
+						  	<li><a >My Account</a></li>
+                        	<li><a href="${pageContext.request.contextPath }/checkout">Checkout</a></li>
+						  	<c:if test="${ user.is_seller == 1}">
+			                	<li><a href="${pageContext.request.contextPath}/seller">Seller</a></li>
+			                </c:if>
+			                <li><a href="${pageContext.request.contextPath }/order">My Order</a></li>
+						    <li><a href="${pageContext.request.contextPath }/logout">Log Out</a></li>
+						  </c:when>
+						  <c:otherwise>
+						    <li><a href="${pageContext.request.contextPath }/login">Log In</a></li>
+						  </c:otherwise>
+						</c:choose>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->
@@ -78,11 +88,11 @@
         <div class="top-cart-block">
           <div class="top-cart-info">
             <a id="cartQuantity" href="${pageContext.request.contextPath }/cart" class="top-cart-info-count">${cartQuantity } items</a>
-            <a  id="cartCharge" href="${pageContext.request.contextPath }/cart" class="top-cart-info-value">${cartCharge }</a>
+            <a id="cartCharge" href="javascript:void(0);" class="top-cart-info-value">${cartCharge }</a>
           </div>
-          <i class="fa fa-shopping-cart"></i>
+          <i id="checkout" class="fa fa-shopping-cart" style="cursor: pointer;"></i>
                         
-          <div class="top-cart-content-wrapper">
+          <%-- <div class="top-cart-content-wrapper">
             <div class="top-cart-content">
               <ul class="scroller" style="height: 250px;">
                 <li>
@@ -143,11 +153,11 @@
                 </li>
               </ul>
               <div class="text-right">
-                <a href="${pageContext.request.contextPath }" class="btn btn-default">View Cart</a>
+                <a href="${pageContext.request.contextPath }/cart" class="btn btn-default">View Cart</a>
                 <a href="${pageContext.request.contextPath }/checkout" class="btn btn-primary">Checkout</a>
               </div>
             </div>
-          </div>            
+          </div>    --%>         
         </div>
         <!--END CART -->
 

@@ -40,17 +40,17 @@ public class HibernateUtil {
 		pros.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 
-		//pros.put(Environment.URL, "jdbc:sqlserver://BOOMKICK:1433;databaseName=LTWEB");
+		pros.put(Environment.URL, "jdbc:sqlserver://BOOMKICK:1433;databaseName=LTWEB");
 		//Phú
-		pros.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=LTWEB");
+		//pros.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=LTWEB");
 
 
 
 
 		pros.put(Environment.USER, "sa");
-		//pros.put(Environment.PASS, "sa");
+		pros.put(Environment.PASS, "sa");
 		//Phú
-		pros.put(Environment.PASS, "Phu@0702");
+		//pros.put(Environment.PASS, "Phu@0702");
 		
 		conf.setProperties(pros);
 		conf.addAnnotatedClass(Category.class);

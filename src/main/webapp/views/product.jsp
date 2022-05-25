@@ -198,9 +198,9 @@
     </div>
     <!-- Header END -->
 
-    <div class="title-wrapper">
+    <div class="title-wrapper" style="background: #72c2ff url(${url}/frontend/anime/648583-edited.jpg) no-repeat 100% 100%;">
       <div class="container"><div class="container-inner">
-        <h1><span>MEN</span> CATEGORY</h1>
+        <h1 style="color: white;"><span>ALL</span> CATEGORY</h1>
         <em>Over 4000 Items are available here</em>
       </div></div>
     </div>
@@ -210,7 +210,7 @@
         <ul class="breadcrumb">
             <li><a href="index.html">Home</a></li>
             <li><a href="">Store</a></li>
-            <li class="active">Men category</li>
+            <li class="active">All category</li>
         </ul>
         <!-- BEGIN SIDEBAR & CONTENT -->
         <div class="row margin-bottom-40">
