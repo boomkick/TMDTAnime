@@ -13,14 +13,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 import vn.banhang.Model.Category;
 import vn.banhang.Model.SubCategory;
 import vn.banhang.Model.User;
+import vn.banhang.otp.GeneralCode;
+import vn.banhang.otp.Smsrequest;
+import vn.banhang.otp.Twilioinitializer;
+import vn.banhang.otp.Twilioproperties;
 import vn.banhang.service.CategoryService;
 import vn.banhang.service.UserService;
 import vn.banhang.service.impl.CategoryServiceImpl;
@@ -66,17 +74,26 @@ public class RegisterController extends HttpServlet {
 		user.setIs_admin(1);
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setIs_seller(Integer.valueOf(isSeller));
+		user.setIs_seller(0);
 		user.setName(name);
-		if(gender.equals("1")) {
-			user.setGender("male");
-		} else {
-			user.setGender("female");
-		}
+		user.setGender("male");
 		user.setPhone(phone);
 		user.setEmail(email);
 		
-		userService.insert(user);
-		resp.sendRedirect(req.getContextPath() + "/login");
+		HttpSession session = req.getSession();
+		session.setAttribute("user5", user);
+		
+		String otp = GeneralCode.generateOTP(5);
+		session.setAttribute("otp", otp);
+		
+		Smsrequest smsrequest = new Smsrequest(user.getPhone() , otp);
+		Twilioproperties properties = new Twilioproperties();
+		Twilioinitializer init = new Twilioinitializer(properties);
+		
+		
+		Message message=Message.creator(new PhoneNumber("+84868286420"), new PhoneNumber(properties.getFromNumber()), otp).create();
+		//userService.insert(user);
+		resp.sendRedirect(req.getContextPath() + "/authentication");
+		
 	}
 }

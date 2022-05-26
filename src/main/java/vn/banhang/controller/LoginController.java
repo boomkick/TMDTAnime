@@ -14,7 +14,8 @@ import vn.banhang.service.UserService;
 import vn.banhang.service.impl.UserServiceImpl;
 
 @WebServlet(urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+public class LoginController extends HttpServlet 
+{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

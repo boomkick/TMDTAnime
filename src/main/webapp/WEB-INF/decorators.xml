@@ -13,6 +13,9 @@
 		<pattern>/login*</pattern>
 	</decorator>
 	
+	<decorator name="authentication" page="login.jsp">
+		<pattern>/authentication*</pattern>
+	</decorator>
 	<decorator name="user" page="user.jsp">
 		<pattern>/user*</pattern>
 	</decorator>

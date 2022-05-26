@@ -20,7 +20,8 @@ import vn.banhang.Model.SubCategory;
 import vn.banhang.Model.Tag;
 import vn.banhang.Model.User;
 
-public class HibernateUtil {
+public class HibernateUtil 
+{
 	private final static SessionFactory FACTORY;
 	
 	
@@ -49,8 +50,6 @@ public class HibernateUtil {
 
 		pros.put(Environment.USER, "sa");
 		pros.put(Environment.PASS, "sa");
-		//Phú
-		//pros.put(Environment.PASS, "Phu@0702");
 		
 		conf.setProperties(pros);
 		conf.addAnnotatedClass(Category.class);
